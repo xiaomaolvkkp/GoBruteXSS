@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"runtime"
 )
 
 const (
@@ -30,9 +31,10 @@ func usage() {
 }
 
 func main() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	if len(os.Args) < 2 {
 		usage()
 		return
 	}
-	fmt.Println(os.Args)
+
 }
