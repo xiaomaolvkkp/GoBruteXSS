@@ -27,6 +27,9 @@ func usage() {
  better to use the wordlist which is already
  provided for positive results.
 
+ brutexss.go get http://www.baidu.com/?index=1
+ brutexss.go post http://www.baidu.com/?index=1
+
 `)
 }
 
