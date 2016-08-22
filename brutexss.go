@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"runtime"
 )
@@ -27,15 +28,29 @@ func usage() {
  better to use the wordlist which is already
  provided for positive results.
 
- brutexss.go get http://www.baidu.com/?index=1
- brutexss.go post http://www.baidu.com/?index=1
+ brutexss.go GET http://www.baidu.com/?index=1 wordlist.txt
+ brutexss.go POST http://www.baidu.com/?index=1 wordlist.txt
 
 `)
+
+	fmt.Printf("Example: %s GET https://example.com/?index=1 wordlist.txt\r\n", os.Args[0])
+	fmt.Printf("Example: %s POST https://example.com/?index=1 wordlist.txt\r\n", os.Args[0])
+	//os.Exit(1)
+	//fmt.Println(os.Args[1])
+}
+
+func readfile(dir string) ([]byte, error) {
+	f, err := os.Open(dir)
+	if err != nil {
+		err.Error()
+	}
+	defer f.Close()
+	return ioutil.ReadAll(f)
 }
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	if len(os.Args) < 2 {
+	if len(os.Args) != 4 {
 		usage()
 		return
 	}
